@@ -8,10 +8,10 @@
     android:orientation="vertical" >
 
 
-	<com.hunterdavis.cantstoptherock.stopTheRockPanel
+	<com.hunterdavis.cantstoptherock.StopTheRockPanel
 		android:id="@+id/SurfaceView01" android:layout_width="fill_parent"
 
 		android:layout_height="fill_parent">
-	</com.hunterdavis.cantstoptherock.stopTheRockPanel>
+	</com.hunterdavis.cantstoptherock.StopTheRockPanel>
 
 </LinearLayout>

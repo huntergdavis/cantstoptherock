@@ -1,7 +1,5 @@
 package com.hunterdavis.cantstoptherock;
 
-import java.util.Random;
-
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
@@ -30,7 +28,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startCantStopTheRock(v.getContext(), 1 + (new Random().nextInt(4)));
+				startCantStopTheRock(v.getContext(), 4);
 			}
 		});
 
@@ -38,7 +36,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startCantStopTheRock(v.getContext(), 5 + (new Random().nextInt(3)));
+				startCantStopTheRock(v.getContext(), 8);
 			}
 		});
 
@@ -46,7 +44,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startCantStopTheRock(v.getContext(), 8 + (new Random().nextInt(8)));
+				startCantStopTheRock(v.getContext(), 16);
 			}
 		});
 		
@@ -66,7 +64,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 	}
 
 	public void startCantStopTheRock(Context context, int numBalloons) {
-		CantStopTheRockActivity.startPopXColorBaloonsScreen(context, numBalloons);
+		CantStopTheRockActivity.startCantStopTheRockGameScreen(context, numBalloons);
 	}
 
 	@Override

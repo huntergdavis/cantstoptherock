@@ -13,20 +13,20 @@ import com.hunterdavis.easyaudiomanager.EasyAudioManager;
 
 public class CantStopTheRockActivity extends Activity {
 
-	/** The Constant numberToMatch. */
-	public static final String numberToMatch = "numberToMatch";
+	/** The Constant gameSpeed. */
+	public static final String gameSpeed = "gameSpeed";
 
 	/** The audio manager. */
 	EasyAudioManager audioManager;
 
-	/** The pop many baloon panel. */
-	stopTheRockPanel popManyBaloonPanel;
+	/** The game panel. */
+	StopTheRockPanel stopTheRockPanel;
 
 	/** The times resumed. */
 	private int timesResumed = 0;
 
-	/** The num baloons to match. */
-	private int numBaloonsToMatch = 3;
+    // the game speed
+    private int gameSpeedSelected = 3;
 
 	/**
 	 * Start pop x color baloons screen.
@@ -36,15 +36,15 @@ public class CantStopTheRockActivity extends Activity {
 	 * @param difficulty
 	 *            the number baloons to match
 	 */
-	public static final void startPopXColorBaloonsScreen(Context context,
-			int difficulty) {
+	public static final void startCantStopTheRockGameScreen(Context context,
+                                                            int difficulty) {
 		// create the new title screen intent
-		Intent baloonsIntent = new Intent(context, CantStopTheRockActivity.class);
-		baloonsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		baloonsIntent.putExtra(numberToMatch, difficulty);
+		Intent launchIntent = new Intent(context, CantStopTheRockActivity.class);
+		launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		launchIntent.putExtra(gameSpeed, difficulty);
 
 		// start title screen.
-		context.startActivity(baloonsIntent);
+		context.startActivity(launchIntent);
 	}
 
 	/*
@@ -58,9 +58,9 @@ public class CantStopTheRockActivity extends Activity {
 
 		Intent baloonIntent = getIntent();
 		Bundle extras = baloonIntent.getExtras();
-		int baloonsToMatch = extras.getInt(numberToMatch, -1);
-		if (baloonsToMatch > 0) {
-			numBaloonsToMatch = baloonsToMatch;
+		int gameSpeedSelect = extras.getInt(gameSpeed, -1);
+		if (gameSpeedSelect > 0) {
+            gameSpeedSelected = gameSpeedSelect;
 		}
 
 		// Set window fullscreen and remove title bar
@@ -70,27 +70,28 @@ public class CantStopTheRockActivity extends Activity {
 
 		setContentView(R.layout.activity_cant_stop_the_rock);
 		// at this point the layout should be inflated, so
-		popManyBaloonPanel = (stopTheRockPanel) findViewById(R.id.SurfaceView01);
+		stopTheRockPanel = (StopTheRockPanel) findViewById(R.id.SurfaceView01);
+        stopTheRockPanel.updateGameSpeed(gameSpeedSelected);
 
 		// create the audioManager
 		int[] soundBites = new int[1];
 		soundBites[0] = R.raw.balloonpop;
 		audioManager = new EasyAudioManager(this, soundBites);
 		audioManager.setSongAndOnComplete(this,
-				R.raw.popxcolorballoonsgametheme, new OnCompletionListener() {
+                R.raw.popxcolorballoonsgametheme, new OnCompletionListener() {
 
-					@Override
-					public void onCompletion(MediaPlayer mp) {
-						mp.seekTo(0);
-						mp.start();
-					}
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.seekTo(0);
+                        mp.start();
+                    }
 
-				});
+                });
 		audioManager.playSong();
 
-		popManyBaloonPanel.setAudioManager(audioManager);
-		if (popManyBaloonPanel.surfaceCreated == true) {
-			popManyBaloonPanel.createThread(popManyBaloonPanel.getHolder());
+		stopTheRockPanel.setAudioManager(audioManager);
+		if (stopTheRockPanel.surfaceCreated == true) {
+			stopTheRockPanel.createThread(stopTheRockPanel.getHolder());
 		}
 
 	}
@@ -103,8 +104,8 @@ public class CantStopTheRockActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (popManyBaloonPanel != null) {
-			popManyBaloonPanel.terminateThread();
+		if (stopTheRockPanel != null) {
+			stopTheRockPanel.terminateThread();
 		}
 		if ((audioManager != null) && (audioManager.songPlaying)) {
 			audioManager.pauseSong();
