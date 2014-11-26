@@ -99,6 +99,16 @@ class Balloon {
 		}
 	}
 
+    public boolean isBalloonActive() {
+        if (popped) {
+            return false;
+        }else if (size == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
 	/**
 	 * Update xand y loc.
 	 *

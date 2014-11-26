@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".CantStopTheRockSelectModeActivity"
-            android:label="@string/title_activity_pop_them_balloons" >
+            android:label="@string/title_activity_cant_stop_the_rock" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name=".CantStopTheRockActivity"
-            android:label="@string/title_activity_pop_them_balloons" >
+            android:label="@string/title_activity_cant_stop_the_rock" >
         </activity>
         <activity
             android:name="com.hunterdavis.gameutils.title.TitleScreen"
