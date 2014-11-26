@@ -1,0 +1,9 @@
+Can't Stop The Rock
+A short and casual game.
+by Hunter Davis
+BSD Licensed For Your Freedom
+Copyright Hunter Davis 2014
+Game Design: Hunter Davis
+
+Creative Commons Art and Audio Assets Used:
+The Open Bundle http://open.commonly.cc/
