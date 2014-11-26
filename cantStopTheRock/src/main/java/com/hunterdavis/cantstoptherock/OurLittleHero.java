@@ -48,6 +48,10 @@ public class OurLittleHero {
         recalculateDrawableRect();
     }
 
+    public void updateMoveSpeed(int moveSpeed) {
+        heroMoveSpeed = moveSpeed;
+    }
+
     private void recalculateDrawableRect() {
         drawableRect = new RectF(xLocation - size, yLocation + size, xLocation + size, yLocation
                 - size);
@@ -79,10 +83,12 @@ public class OurLittleHero {
 
         int index = 0;
         for(Balloon b : balloons) {
-            float distance = renderMath.fdistance(b.xLocation,xLocation,b.yLocation,yLocation);
-            if(closestDistance > distance) {
-                closestDistance = distance;
-                closestIndex = index;
+            if(b.isBalloonActive()) {
+                float distance = renderMath.fdistance(b.xLocation, xLocation, b.yLocation, yLocation);
+                if (closestDistance > distance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
             }
             index++;
         }

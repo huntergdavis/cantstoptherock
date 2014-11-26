@@ -13,7 +13,6 @@ import com.hunterdavis.easyaudiomanager.EasyAudioManager;
 import com.hunterdavis.gameutils.credits.CreditsScreen;
 import com.hunterdavis.gameutils.rendering.GameSurfaceView;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -35,7 +34,7 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     private int mHeight = 0;
 
     /** the balloon tick value */
-    private int balloonTickValue = 1;
+    private int gameTickSpeed = 1;
 
     /** The game over. */
     private boolean gameOver = false;
@@ -92,7 +91,8 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     }
 
     public void updateGameSpeed(int gameSpeed) {
-        balloonTickValue = gameSpeed;
+        gameTickSpeed = gameSpeed;
+        hero.updateMoveSpeed(gameSpeed + 1);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
                     dropABaloon(event);
                 } else if (gameOver) {
                     CreditsScreen.startCreditScreen(getContext(),
-                            R.raw.popxcolorballoonscreditstheme,
-                            R.raw.popxcolorballoonscredits,
+                            R.raw.credits,
+                            R.raw.cantstopcredits,
                             R.drawable.hunterredbaloon, "You Stopped The Rock!");
 
                     winAndFinishActivity();
@@ -127,8 +127,10 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     private void dropABaloon(MotionEvent event) {
 
         for(Balloon b : balloons) {
-            if(b.isPointWithinBaloon(event.getX(),event.getY())) {
-              return;
+            if(b.isBalloonActive()) {
+                if (b.isPointWithinBaloon(event.getX(), event.getY())) {
+                    return;
+                }
             }
         }
 
@@ -136,13 +138,25 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
             if(!b.isBalloonActive()) {
                 b.xLocation = (int)event.getX();
                 b.yLocation = (int)event.getY();
-                b.color = Color.RED;
+                b.color = getColorBasedOnGameSpeed();
                 b.size = 6 + random.nextInt(20);
+                b.popped = false;
 
                 return;
             }
         }
 
+    }
+
+    private int getColorBasedOnGameSpeed() {
+        if(gameTickSpeed < 10) {
+            return Color.BLUE;
+        }else if (gameTickSpeed < 20) {
+            return Color.CYAN;
+        }else if (gameTickSpeed < 40) {
+            return Color.RED;
+        }
+        return Color.DKGRAY;
     }
 
     private void winAndFinishActivity() {
@@ -204,7 +218,7 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
                 // only remove balloon once off screen so there's no pop-out
                 if (b.xLocation + 20 > 0) {
                     b.age++;
-                    b.updateXandYLoc(b.xLocation - balloonTickValue, b.yLocation);
+                    b.updateXandYLoc(b.xLocation - gameTickSpeed, b.yLocation);
                 } else {
                     b.pop();
                 }

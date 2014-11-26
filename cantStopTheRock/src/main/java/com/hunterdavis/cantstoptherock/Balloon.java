@@ -157,22 +157,6 @@ class Balloon {
 	 */
 	public void drawBaloon(Canvas canvas, Paint paint) {
 
-		paint.setColor(Color.BLACK);
-
-		// first draw a 'string'
-		canvas.drawLine(xLocation, yLocation + size, xLocation, yLocation
-				+ tailLength, paint);
-
-		// draw a little tail on the string
-		if (leftTail) {
-			canvas.drawLine(xLocation, yLocation + tailLength, xLocation
-					- (tailLength / 8), yLocation + tailLength
-					+ (tailLength / 8), paint);
-		} else {
-			canvas.drawLine(xLocation, yLocation + tailLength, xLocation
-					+ (tailLength / 8), yLocation + tailLength
-					+ (tailLength / 8), paint);
-		}
 
 		// draw the baloon oval
 		if ((popped == false) || (poppingFramesRemaining >= 1)) {

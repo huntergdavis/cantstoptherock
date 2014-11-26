@@ -113,8 +113,8 @@ class gameAreaPanel extends GameSurfaceView implements SurfaceHolder.Callback {
 					testBaloonsForPops(event);
 				} else if (gameOver) {
 					CreditsScreen.startCreditScreen(getContext(),
-							R.raw.popxcolorballoonscreditstheme,
-							R.raw.popxcolorballoonscredits,
+							R.raw.credits,
+							R.raw.cantstopcredits,
 							R.drawable.hunterredbaloon, "You popped "
 									+ getBaloonPopCount(colorToWin) + " "
 									+ colorToWinName + " balloons");

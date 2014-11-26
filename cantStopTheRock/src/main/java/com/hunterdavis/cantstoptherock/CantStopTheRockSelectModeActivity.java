@@ -28,7 +28,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startCantStopTheRock(v.getContext(), 4);
+				startCantStopTheRock(v.getContext(), CantStopTheRockActivity.Difficulty.EASY);
 			}
 		});
 
@@ -36,7 +36,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startCantStopTheRock(v.getContext(), 8);
+				startCantStopTheRock(v.getContext(), CantStopTheRockActivity.Difficulty.MEDIUM);
 			}
 		});
 
@@ -44,7 +44,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startCantStopTheRock(v.getContext(), 16);
+				startCantStopTheRock(v.getContext(), CantStopTheRockActivity.Difficulty.HARD);
 			}
 		});
 		
@@ -55,7 +55,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 
 		// create a title screen and throw it up
 		TitleScreen.startTitleScreen(getApplicationContext(),
-				R.raw.popxcolorballoonstitletheme,
+				R.raw.title,
 				R.drawable.popxcolorbaloonstitle, true/* touchToExit */,
 				false /* exitOnWavComplete */, 3000/* timeout */, false /*
 																	 * landscape
@@ -63,8 +63,8 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 																	 */);
 	}
 
-	public void startCantStopTheRock(Context context, int numBalloons) {
-		CantStopTheRockActivity.startCantStopTheRockGameScreen(context, numBalloons);
+	public void startCantStopTheRock(Context context, CantStopTheRockActivity.Difficulty difficulty) {
+		CantStopTheRockActivity.startCantStopTheRockGameScreen(context, difficulty);
 	}
 
 	@Override
