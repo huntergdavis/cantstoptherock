@@ -58,12 +58,21 @@ public class OurLittleHero {
     }
 
     public void drawHero(Canvas canvas, Paint paint) {
-        paint.setColor(color);
+        // first paint the black background
+        paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawOval(drawableRect, paint);
+        paint.setColor(color);
+        canvas.drawOval(new RectF(drawableRect.left + 1,drawableRect.top - 1,
+                drawableRect.right - 1,drawableRect.bottom + 1), paint);
     }
 
-    public void updateCurrentPosition(Balloon[] balloons) {
+    /*
+    * returns true if any balloons were popped
+     */
+    public boolean updateCurrentPositionAndPopOverlaps(Balloon[] balloons) {
+
+        boolean poppedAny = false;
 
         boolean foundActive = false;
         for(Balloon b : balloons) {
@@ -74,7 +83,7 @@ public class OurLittleHero {
         }
 
         if(!foundActive) {
-            return;
+            return poppedAny;
         }
 
         // move closer to the closest balloon
@@ -84,7 +93,14 @@ public class OurLittleHero {
         int index = 0;
         for(Balloon b : balloons) {
             if(b.isBalloonActive()) {
-                float distance = renderMath.fdistance(b.xLocation, xLocation, b.yLocation, yLocation);
+                float distance = renderMath.fdistance(b.xLocation, b.yLocation, xLocation, yLocation);
+
+                // if we're overlapping a balloon, pop that sucker
+                if(distance < (size + b.size + heroMoveSpeed - 1)) {
+                    poppedAny = true;
+                    b.pop();
+                }
+
                 if (closestDistance > distance) {
                     closestDistance = distance;
                     closestIndex = index;
@@ -107,5 +123,6 @@ public class OurLittleHero {
         }
 
         recalculateDrawableRect();
+        return poppedAny;
     }
 }

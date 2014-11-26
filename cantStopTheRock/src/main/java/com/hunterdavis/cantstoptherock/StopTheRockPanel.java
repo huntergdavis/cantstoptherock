@@ -60,6 +60,18 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     /** The Number of Balloons */
     private int numberOfBalloons = 200;
 
+    /** Our Soothing Background Color */
+    private int backgroundColorIndex = 0;
+    private int currentBackgroundColor = Color.rgb(194,225,229);
+
+    private int[] soothingColors = {
+            Color.rgb(194,225,229),
+            Color.rgb(169,204,101),
+            Color.rgb(239,208,204),
+            Color.rgb(180,183,176),
+            Color.rgb(216,200,175),
+    };
+
     /** Our Random */
     Random random = new Random();
 
@@ -205,7 +217,9 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     }
 
     private void updateCurrentRockPositionTick() {
-        hero.updateCurrentPosition(balloons);
+        if(hero.updateCurrentPositionAndPopOverlaps(balloons)) {
+            playPoppingSound(mContext);
+        };
     }
 
     private synchronized void updateBalloonPositions() {
@@ -242,8 +256,8 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
             paint.setTextAlign(Paint.Align.CENTER);
         }
 
-        paint.setColor(Color.WHITE);
-        // clear the screen with the black painter.
+        paint.setColor(getSoothingBackgroundColor());
+        // clear the screen with the background painter.
         canvas.drawRect(0, 0, mWidth, mHeight, paint);
 
         // draw the balloons and hero
@@ -269,6 +283,61 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
                 mHeight / 30, paint);
 
 
+    }
+
+    /*
+    * 1. find optimum color at current index
+    * 2. step 1 towards that color from current color
+    * 3. if color == optimum, update index
+    * 4. return color
+     */
+    private int getSoothingBackgroundColor() {
+        // find optimum color at current index
+        int optimumColor = soothingColors[backgroundColorIndex];
+        int optimumRed = Color.red(optimumColor);
+        int optimumBlue = Color.blue(optimumColor);
+        int optimumGreen = Color.green(optimumColor);
+
+        int currentRed = Color.red(currentBackgroundColor);
+        int currentBlue = Color.blue(currentBackgroundColor);
+        int currentGreen = Color.green(currentBackgroundColor);
+
+
+        // update current background color
+        int newRed = currentRed;
+        int newBlue = currentBlue;
+        int newGreen = currentGreen;
+
+        // only make 1 step each iteration.  Either red, blue, or green
+        newRed = stepTowardsValue(currentRed,optimumRed);
+        if(newRed == currentRed) {
+            newBlue = stepTowardsValue(currentBlue, optimumBlue);
+            if(newBlue == currentBlue) {
+                newGreen = stepTowardsValue(currentGreen, optimumGreen);
+            }
+
+        }
+
+        currentBackgroundColor = Color.rgb(newRed,newGreen,newBlue);
+
+        // update index
+        if(optimumColor == currentBackgroundColor) {
+            backgroundColorIndex = (backgroundColorIndex + 1) % (soothingColors.length - 1);
+        }
+
+        return currentBackgroundColor;
+    }
+
+    private int stepTowardsValue(int stepper, int targetVal) {
+        int retVal = stepper;
+
+        if(stepper < targetVal) {
+            retVal++;
+        }else if (stepper > targetVal) {
+            retVal--;
+        }
+
+        return retVal;
     }
 
     private int getNumberOfBalloonsInPlay() {
@@ -312,5 +381,16 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
      */
     public void setAudioManager(EasyAudioManager audioM) {
         audioManager = audioM;
+    }
+
+    /**
+     * Play popping sound.
+     *
+     * @param context
+     *            the context
+     */
+    public void playPoppingSound(Context context) {
+        // knowing that the baloon pop sound is 0 is DIRRRRTY
+        audioManager.playSound(0, context);
     }
 }
