@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cantstopPanelHolder"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
@@ -8,10 +9,5 @@
     android:orientation="vertical" >
 
 
-	<com.hunterdavis.cantstoptherock.StopTheRockPanel
-		android:id="@+id/SurfaceView01" android:layout_width="fill_parent"
-
-		android:layout_height="fill_parent">
-	</com.hunterdavis.cantstoptherock.StopTheRockPanel>
 
 </LinearLayout>

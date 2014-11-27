@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".CantStopTheRockSelectModeActivity"
+            android:name=".activity.CantStopTheRockSelectGameTypeActivity"
             android:label="@string/title_activity_cant_stop_the_rock" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CantStopTheRockActivity"
+            android:name=".activity.CantStopTheRockSelectSpeedActivity"
+            android:label="@string/title_activity_cant_stop_the_rock" >
+        </activity>
+        <activity
+            android:name=".activity.CantStopTheRockActivity"
             android:label="@string/title_activity_cant_stop_the_rock" >
         </activity>
         <activity
