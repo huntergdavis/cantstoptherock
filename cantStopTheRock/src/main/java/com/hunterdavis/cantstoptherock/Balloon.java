@@ -175,8 +175,8 @@ class Balloon {
     public void drawBalloonWithText(Canvas canvas, Paint paint, String text) {
         drawBaloon(canvas, paint);
 
-        paint.setColor(Color.BLACK);
-        canvas.drawText(text, xLocation,yLocation-(size/2),paint);
+        paint.setColor(Color.YELLOW);
+        canvas.drawText(text, xLocation,yLocation+(size/2),paint);
     }
 
 
