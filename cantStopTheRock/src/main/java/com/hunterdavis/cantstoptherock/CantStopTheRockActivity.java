@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,7 +17,7 @@ public class CantStopTheRockActivity extends Activity {
 	/** The Constant gameSpeed. */
 	public static final String gameSpeed = "gameSpeed";
 
-	/** The audio manager. */
+	/** The background audio player */
 	EasyAudioManager audioManager;
 
 	/** The game panel. */
@@ -93,8 +94,6 @@ public class CantStopTheRockActivity extends Activity {
         }
 
 		// create the audioManager
-		int[] soundBites = new int[1];
-		soundBites[0] = R.raw.balloonpop;
 		audioManager = new EasyAudioManager(this, AudioUtils.soundPool);
 		audioManager.setSongAndOnComplete(this,
                 getSongReferenceBasedOnDifficulty(gameSpeedSelected), new OnCompletionListener() {
@@ -106,7 +105,16 @@ public class CantStopTheRockActivity extends Activity {
                     }
 
                 });
-		audioManager.playSong();
+
+        new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... voids) {
+                audioManager.playSong();
+                return null;
+            }
+        }.execute();
+
+
 
 		stopTheRockPanel.setAudioManager(audioManager);
 		if (stopTheRockPanel.surfaceCreated == true) {

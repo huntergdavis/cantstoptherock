@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -218,7 +219,17 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     private void updateCurrentRockPositionTick() {
         if(hero.updateCurrentPositionAndPopOverlapsAndPlayNotes(balloons)) {
             //audioManager.pauseSong();
-            AudioUtils.playPoppingSound(mContext,audioManager);
+
+            new AsyncTask<Void, Void, Void>(){
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    //AudioUtils.playPoppingSound(mContext, audioManager);
+                    AudioUtils.playSoundForBalloonPop(mContext,audioManager,new Balloon(hero.xLocation,hero.yLocation,0,0),mHeight);
+                    return null;
+                }
+            }.execute();
+
+
             //AudioUtils.playSoundForBalloonPop(mContext,audioManager,);
             //AudioUtils.playSoundForBalloonPop(mContext,audioManager,new Balloon(hero.xLocation,hero.yLocation,0,0),mHeight);
         };
@@ -364,9 +375,9 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     public void drawBaloons(Canvas canvas, Paint paint) {
         for (Balloon b : balloons) {
             if(b.isBalloonActive()) {
-                b.drawBaloon(canvas, paint);
-                //b.drawBalloonWithText(canvas,paint,
-                //        AudioUtils.getSoundPoolValueForBalloon(b,mHeight).name());
+                //b.drawBaloon(canvas, paint);
+                b.drawBalloonWithText(canvas,paint,
+                        AudioUtils.getSoundPoolValueForBalloon(b,mHeight).name());
             }
         }
     }

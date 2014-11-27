@@ -56,7 +56,7 @@ public class CantStopTheRockSelectModeActivity extends Activity {
 		// create a title screen and throw it up
 		TitleScreen.startTitleScreen(getApplicationContext(),
 				R.raw.title,
-				R.drawable.cantstoptherocktitle, false/* touchToExit */,
+				R.drawable.cantstoptherocktitle, true/* touchToExit */,
 				true /* exitOnWavComplete */, 100000/* timeout */, false /*
 																	 * landscape
 																	 * mode
