@@ -216,8 +216,11 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     }
 
     private void updateCurrentRockPositionTick() {
-        if(hero.updateCurrentPositionAndPopOverlapsAndPlayNotes(mContext,balloons, audioManager, mHeight)) {
-            audioManager.playSong();
+        if(hero.updateCurrentPositionAndPopOverlapsAndPlayNotes(balloons)) {
+            //audioManager.pauseSong();
+            AudioUtils.playPoppingSound(mContext,audioManager);
+            //AudioUtils.playSoundForBalloonPop(mContext,audioManager,);
+            //AudioUtils.playSoundForBalloonPop(mContext,audioManager,new Balloon(hero.xLocation,hero.yLocation,0,0),mHeight);
         };
     }
 
@@ -361,9 +364,9 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     public void drawBaloons(Canvas canvas, Paint paint) {
         for (Balloon b : balloons) {
             if(b.isBalloonActive()) {
-                //b.drawBaloon(canvas, paint);
-                b.drawBalloonWithText(canvas,paint,
-                        AudioUtils.getSoundPoolValueForBalloon(b,mHeight).name());
+                b.drawBaloon(canvas, paint);
+                //b.drawBalloonWithText(canvas,paint,
+                //        AudioUtils.getSoundPoolValueForBalloon(b,mHeight).name());
             }
         }
     }

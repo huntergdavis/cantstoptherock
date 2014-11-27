@@ -71,7 +71,7 @@ public class OurLittleHero {
     /*
     * returns true if any balloons were popped
      */
-    public boolean updateCurrentPositionAndPopOverlapsAndPlayNotes(Context context, Balloon[] balloons, EasyAudioManager audioManager, int screenHeight) {
+    public boolean updateCurrentPositionAndPopOverlapsAndPlayNotes(Balloon[] balloons) {
 
         boolean poppedAny = false;
 
@@ -100,8 +100,6 @@ public class OurLittleHero {
                 if(distance < (size + b.size + heroMoveSpeed - 1)) {
                     poppedAny = true;
                     b.pop();
-                    audioManager.pauseSong();
-                    AudioUtils.playSoundForBalloonPop(context,audioManager,b,screenHeight);
                 }
 
                 if (closestDistance > distance) {
