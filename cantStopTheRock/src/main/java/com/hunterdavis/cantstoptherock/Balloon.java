@@ -172,6 +172,14 @@ class Balloon {
 
 	}
 
+    public void drawBalloonWithText(Canvas canvas, Paint paint, String text) {
+        drawBaloon(canvas, paint);
+
+        paint.setColor(Color.BLACK);
+        canvas.drawText(text, xLocation,yLocation,paint);
+    }
+
+
 	/**
 	 * Draw baloon cracks.
 	 *

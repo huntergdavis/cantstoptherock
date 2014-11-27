@@ -1,13 +1,14 @@
 package com.hunterdavis.cantstoptherock;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import com.hunterdavis.easyaudiomanager.EasyAudioManager;
 import com.hunterdavis.gameutils.rendering.renderMath;
 
-import java.util.ArrayList;
 
 /**
  * Created by hunter on 11/25/14.
@@ -70,7 +71,7 @@ public class OurLittleHero {
     /*
     * returns true if any balloons were popped
      */
-    public boolean updateCurrentPositionAndPopOverlaps(Balloon[] balloons) {
+    public boolean updateCurrentPositionAndPopOverlapsAndPlayNotes(Context context, Balloon[] balloons, EasyAudioManager audioManager, int screenHeight) {
 
         boolean poppedAny = false;
 
@@ -99,6 +100,8 @@ public class OurLittleHero {
                 if(distance < (size + b.size + heroMoveSpeed - 1)) {
                     poppedAny = true;
                     b.pop();
+                    audioManager.pauseSong();
+                    AudioUtils.playSoundForBalloonPop(context,audioManager,b,screenHeight);
                 }
 
                 if (closestDistance > distance) {

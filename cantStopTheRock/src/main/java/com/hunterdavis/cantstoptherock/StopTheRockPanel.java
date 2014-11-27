@@ -81,7 +81,6 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     /** The audio manager. */
     private EasyAudioManager audioManager;
 
-
     public StopTheRockPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -89,7 +88,7 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
 
         updatingPositions = new AtomicBoolean(false);
 
-        balloons = new Balloon[200];
+        balloons = new Balloon[numberOfBalloons];
 
         // init empty balloons
         for(int i = 0; i < numberOfBalloons; i++) {
@@ -151,7 +150,7 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
                 b.xLocation = (int)event.getX();
                 b.yLocation = (int)event.getY();
                 b.color = getColorBasedOnGameSpeed();
-                b.size = 6 + random.nextInt(20);
+                b.size = 15 + random.nextInt(20);
                 b.popped = false;
 
                 return;
@@ -217,8 +216,8 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     }
 
     private void updateCurrentRockPositionTick() {
-        if(hero.updateCurrentPositionAndPopOverlaps(balloons)) {
-            playPoppingSound(mContext);
+        if(hero.updateCurrentPositionAndPopOverlapsAndPlayNotes(mContext,balloons, audioManager, mHeight)) {
+            audioManager.playSong();
         };
     }
 
@@ -362,7 +361,9 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
     public void drawBaloons(Canvas canvas, Paint paint) {
         for (Balloon b : balloons) {
             if(b.isBalloonActive()) {
-                b.drawBaloon(canvas, paint);
+                //b.drawBaloon(canvas, paint);
+                b.drawBalloonWithText(canvas,paint,
+                        AudioUtils.getSoundPoolValueForBalloon(b,mHeight).name());
             }
         }
     }
@@ -383,14 +384,4 @@ public class StopTheRockPanel extends GameSurfaceView implements SurfaceHolder.C
         audioManager = audioM;
     }
 
-    /**
-     * Play popping sound.
-     *
-     * @param context
-     *            the context
-     */
-    public void playPoppingSound(Context context) {
-        // knowing that the baloon pop sound is 0 is DIRRRRTY
-        audioManager.playSound(0, context);
-    }
 }

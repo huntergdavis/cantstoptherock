@@ -95,7 +95,7 @@ public class CantStopTheRockActivity extends Activity {
 		// create the audioManager
 		int[] soundBites = new int[1];
 		soundBites[0] = R.raw.balloonpop;
-		audioManager = new EasyAudioManager(this, soundBites);
+		audioManager = new EasyAudioManager(this, AudioUtils.soundPool);
 		audioManager.setSongAndOnComplete(this,
                 getSongReferenceBasedOnDifficulty(gameSpeedSelected), new OnCompletionListener() {
 
