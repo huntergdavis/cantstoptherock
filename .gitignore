@@ -24,3 +24,8 @@ proguard/
 
 # Log Files
 *.log
+
+#other library folder
+androidEasyGameUtils/
+android_Simple_Game_Audio/
+
