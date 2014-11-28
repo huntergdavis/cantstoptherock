@@ -33,7 +33,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
     public Context mContext;
 
     /** The m width. */
-    private int mWidth = 0;
+    int mWidth = 0;
 
     /** The m height. */
     int mHeight = 0;
@@ -60,7 +60,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
     OurLittleHero hero;
 
     /** The Hero Size */
-    private int heroSize = 20;
+    int heroSize = 20;
 
     /** The Number of Balloons */
     private int numberOfBalloons = 200;
@@ -100,16 +100,17 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
             balloons[i] = new Balloon(0,0,0,0);
         }
 
-        hero = new OurLittleHero(50,50,heroSize);
-
         getHolder().addCallback(this);
         setFocusable(true);
+    }
+
+    public OurLittleHero getHero() {
+        return new OurLittleHero(50,50,heroSize);
     }
 
 
     public void updateGameSpeed(int gameSpeed) {
         gameTickSpeed = gameSpeed;
-        hero.updateMoveSpeed(gameSpeed + 1);
     }
 
 
@@ -214,7 +215,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
             initGameState();
         }
 
-        if (gameStarted && updatingPositions.weakCompareAndSet(false, true)) {
+        if (gameStarted && !firstRun && updatingPositions.weakCompareAndSet(false, true)) {
             // update current rock a tick
             updateCurrentRockPositionTick();
             updateBalloonPositions();
@@ -259,8 +260,11 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
         }
     }
 
+    // init the game state (after the graphics panel)
     private void initGameState() {
         firstRun = false;
+        hero = getHero();
+        hero.updateMoveSpeed(gameTickSpeed + 1);
     }
 
     @Override

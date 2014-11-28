@@ -52,7 +52,7 @@ public class OurLittleHero {
         heroMoveSpeed = moveSpeed;
     }
 
-    private void recalculateDrawableRect() {
+    protected void recalculateDrawableRect() {
         drawableRect = new RectF(xLocation - size, yLocation + size, xLocation + size, yLocation
                 - size);
     }
@@ -71,8 +71,12 @@ public class OurLittleHero {
     * returns true if any balloons were popped
      */
     public boolean updateCurrentPositionAndPopOverlapsAndPlayNotes(Balloon[] balloons) {
+        moveHero(balloons);
+        recalculateDrawableRect();
+        return tryToPopABalloon(balloons);
+    }
 
-        boolean poppedAny = false;
+    public void moveHero(Balloon[] balloons) {
 
         boolean foundActive = false;
         for(Balloon b : balloons) {
@@ -83,31 +87,13 @@ public class OurLittleHero {
         }
 
         if(!foundActive) {
-            return poppedAny;
+            return;
         }
+
 
         // move closer to the closest balloon
         closestDistance = 100000;
-        closestIndex = 0;
-
-        int index = 0;
-        for(Balloon b : balloons) {
-            if(b.isBalloonActive()) {
-                float distance = renderMath.fdistance(b.xLocation, b.yLocation, xLocation, yLocation);
-
-                // if we're overlapping a balloon, pop that sucker
-                if(distance < (size + b.size + heroMoveSpeed - 1)) {
-                    poppedAny = true;
-                    b.pop();
-                }
-
-                if (closestDistance > distance) {
-                    closestDistance = distance;
-                    closestIndex = index;
-                }
-            }
-            index++;
-        }
+        closestIndex = getIndexOfClosestBalloon(balloons);
 
         Balloon winningBalloon = balloons[closestIndex];
 
@@ -121,8 +107,37 @@ public class OurLittleHero {
         }else if (winningBalloon.yLocation < yLocation) {
             yLocation = yLocation - heroMoveSpeed;
         }
+    }
 
-        recalculateDrawableRect();
-        return poppedAny;
+    public int getIndexOfClosestBalloon(Balloon[] balloons) {
+        int index = 0;
+        float distance = 0.0f;
+        for(Balloon b : balloons) {
+            if(b.isBalloonActive()) {
+                distance = renderMath.fdistance(b.xLocation, b.yLocation, xLocation, yLocation);
+
+                if (closestDistance > distance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            }
+            index++;
+        }
+
+        return closestIndex;
+    }
+
+    public boolean tryToPopABalloon(Balloon[] balloons) {
+       for(Balloon b : balloons) {
+            if(b.isBalloonActive()) {
+                // if we're overlapping a balloon, pop that sucker, but just one
+                if(renderMath.fdistance(b.xLocation, b.yLocation, xLocation, yLocation)
+                        < (size + b.size + heroMoveSpeed - 1)) {
+                   b.pop();
+                   return true;
+                }
+            }
+        }
+        return false;
     }
 }

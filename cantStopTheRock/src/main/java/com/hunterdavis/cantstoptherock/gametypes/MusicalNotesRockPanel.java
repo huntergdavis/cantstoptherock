@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.util.AttributeSet;
 
 import com.hunterdavis.cantstoptherock.types.Balloon;
+import com.hunterdavis.cantstoptherock.types.OurLittleHero;
+import com.hunterdavis.cantstoptherock.types.OurLittleLineSweepingHero;
 import com.hunterdavis.cantstoptherock.util.AudioUtils;
 
 /**
@@ -16,6 +18,11 @@ public class MusicalNotesRockPanel extends BaseStopTheRockPanel{
 
     public MusicalNotesRockPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    public OurLittleHero getHero() {
+        return new OurLittleLineSweepingHero(50,50,heroSize,mHeight, mWidth);
     }
 
     @Override
