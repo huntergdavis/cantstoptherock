@@ -42,7 +42,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
     private int gameTickSpeed = 1;
 
     /** The game over. */
-    private boolean gameOver = false;
+    protected boolean gameOver = false;
 
     /** The first run. */
     private boolean firstRun = true;

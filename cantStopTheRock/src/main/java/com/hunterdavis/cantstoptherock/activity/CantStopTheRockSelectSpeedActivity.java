@@ -4,8 +4,8 @@ package com.hunterdavis.cantstoptherock.activity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.hunterdavis.cantstoptherock.R;
-import com.hunterdavis.cantstoptherock.gametypes.Difficulty;
-import com.hunterdavis.cantstoptherock.gametypes.GameType;
+import com.hunterdavis.cantstoptherock.types.Difficulty;
+import com.hunterdavis.cantstoptherock.types.GameType;
 
 import android.app.Activity;
 import android.content.Context;

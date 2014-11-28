@@ -13,8 +13,9 @@ import android.widget.LinearLayout;
 
 import com.hunterdavis.cantstoptherock.R;
 import com.hunterdavis.cantstoptherock.gametypes.BaseStopTheRockPanel;
-import com.hunterdavis.cantstoptherock.gametypes.Difficulty;
-import com.hunterdavis.cantstoptherock.gametypes.GameType;
+import com.hunterdavis.cantstoptherock.gametypes.FillMeUpRockPanel;
+import com.hunterdavis.cantstoptherock.types.Difficulty;
+import com.hunterdavis.cantstoptherock.types.GameType;
 import com.hunterdavis.cantstoptherock.gametypes.MusicalNotesRockPanel;
 import com.hunterdavis.cantstoptherock.gametypes.VanillaStopTheRockPanel;
 import com.hunterdavis.cantstoptherock.util.AudioUtils;
@@ -145,6 +146,8 @@ public class CantStopTheRockActivity extends Activity {
                 return new VanillaStopTheRockPanel(context,null);
             case MUSIC_NOTES:
                 return new MusicalNotesRockPanel(context,null);
+            case FILL_ME_UP:
+                return new FillMeUpRockPanel(context, null);
         }
     }
 
