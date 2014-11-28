@@ -21,7 +21,7 @@ public class OurLittleHero {
     public int yLocation;
 
     /** The size. */
-    int size;
+    public int size;
 
     /** The age. */
     int age;
