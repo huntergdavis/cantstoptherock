@@ -114,4 +114,14 @@ public class BossFightGamePanel extends BaseStopTheRockPanel {
         }
     }
 
+    @Override
+    public String getStartGameText() {
+        return "Bomb The Boss!";
+    }
+
+    @Override
+    public String getGameOverText() {
+        return "You Rocked That Boss!";
+    }
+
 }

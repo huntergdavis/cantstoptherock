@@ -129,7 +129,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
                     CreditsScreen.startCreditScreen(getContext(),
                             R.raw.credits,
                             R.raw.cantstopcredits,
-                            R.drawable.hunterredbaloon, "You Stopped The Rock!");
+                            R.drawable.hunterredbaloon, getGameOverText());
 
                     winAndFinishActivity();
                 }
@@ -292,7 +292,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
         if (gameStarted == false) {
             paint.setColor(Color.MAGENTA);
             paint.setTextSize(30);
-            canvas.drawText("Tap To Drop Balloons", (mWidth / 2), mHeight / 4, paint);
+            canvas.drawText(getStartGameText(), (mWidth / 2), mHeight / 4, paint);
         }
 
         // draw game over if game over
@@ -406,4 +406,11 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
         audioManager = audioM;
     }
 
+    public String getStartGameText() {
+        return "Tap To Drop Balloons";
+    }
+
+    public String getGameOverText() {
+        return "You Stopped The Rock!";
+    }
 }
