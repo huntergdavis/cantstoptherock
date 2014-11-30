@@ -6,5 +6,6 @@ package com.hunterdavis.cantstoptherock.types;
 public enum GameType {
     VANILLA,
     MUSIC_NOTES,
-    FILL_ME_UP
+    FILL_ME_UP,
+    BOSS_FIGHT
 }

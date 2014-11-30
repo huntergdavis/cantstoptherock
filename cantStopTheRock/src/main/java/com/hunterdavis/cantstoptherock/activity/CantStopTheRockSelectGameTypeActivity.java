@@ -43,7 +43,9 @@ public class CantStopTheRockSelectGameTypeActivity extends Activity {
                 selectSpeed(v.getContext(), GameType.FILL_ME_UP);
             }
         });
-		
+
+
+
 		// Look up the AdView as a resource and load a request.
 		AdView adView = (AdView) this.findViewById(R.id.adView);
 		adView.loadAd(new AdRequest());

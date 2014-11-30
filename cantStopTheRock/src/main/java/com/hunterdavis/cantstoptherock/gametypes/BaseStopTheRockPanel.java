@@ -39,7 +39,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
     int mHeight = 0;
 
     /** the balloon tick value */
-    private int gameTickSpeed = 1;
+    int gameTickSpeed = 1;
 
     /** The game over. */
     protected boolean gameOver = false;

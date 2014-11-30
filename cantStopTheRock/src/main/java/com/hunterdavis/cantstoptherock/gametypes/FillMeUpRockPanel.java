@@ -6,13 +6,14 @@ import android.util.AttributeSet;
 
 import com.hunterdavis.cantstoptherock.types.Balloon;
 import com.hunterdavis.cantstoptherock.util.AudioUtils;
+import com.hunterdavis.easyaudiomanager.EasyAudioManager;
 
 /**
  * Created by hunter on 11/28/14.
  */
 public class FillMeUpRockPanel extends BaseStopTheRockPanel {
 
-    public int heroWinSize = 300;
+    public int heroWinSize = 100;
 
     public FillMeUpRockPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
