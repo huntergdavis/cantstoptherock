@@ -93,7 +93,7 @@ public class BossFightGamePanel extends BaseStopTheRockPanel {
 
     public void drawBossHealth(Canvas canvas) {
 
-        canvas.drawRect(0,0,mWidth,heartPadding + heartSize,paint);
+        canvas.drawRect(0,0,mWidth,(2* heartPadding) + heartSize,paint);
 
         RectF heartRect = new RectF();
         heartRect.top = heartPadding;
