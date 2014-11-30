@@ -45,10 +45,10 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
     protected boolean gameOver = false;
 
     /** The first run. */
-    private boolean firstRun = true;
+    boolean firstRun = true;
 
     /** The game started. */
-    private boolean gameStarted = false;
+    boolean gameStarted = false;
 
     /** are we updating positions still? (slow cpu) */
     private AtomicBoolean updatingPositions;
@@ -78,7 +78,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
     };
 
     /** Our Random */
-    Random random = new Random();
+    public Random random = new Random();
 
     /** The paint. */
     private Paint paint = null;

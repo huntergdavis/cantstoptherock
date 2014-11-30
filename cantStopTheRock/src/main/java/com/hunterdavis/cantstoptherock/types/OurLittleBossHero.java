@@ -12,6 +12,8 @@ import android.graphics.RectF;
 import com.hunterdavis.cantstoptherock.R;
 import com.hunterdavis.gameutils.rendering.renderMath;
 
+import java.util.Random;
+
 /**
  * Created by hunter on 11/30/14.
  */
@@ -29,10 +31,24 @@ public class OurLittleBossHero extends OurLittleHero{
     Rect src;
     Rect dest;
 
-    public OurLittleBossHero(Context context, int x, int y, int siz, int dontGoPastThisXPos, int healthPerBalloonHit) {
+    // constantly moving destination point
+    private int xDest;
+    private int yDest;
+
+    Random random;
+
+    int screenHeight = 200;
+
+    public OurLittleBossHero(Context context, int x, int y, int siz, int dontGoPastThisXPos, int healthPerBalloonHit, int screenHeight) {
         super(x, y, siz);
         xPosNotToGoPast = dontGoPastThisXPos;
         healthPerBalloon = healthPerBalloonHit;
+
+        xDest = x;
+        yDest = y;
+
+        // random
+        random = new Random();
 
         // pre-calculate and cache our graphics
         int bossSize = 100;
@@ -44,12 +60,24 @@ public class OurLittleBossHero extends OurLittleHero{
 
     @Override
     public void moveHero(Balloon[] balloons) {
-        super.moveHero(balloons);
 
-        if(xLocation > xPosNotToGoPast) {
-            xLocation -= 2 * heroMoveSpeed;
+        if(xLocation < xDest) {
+            xLocation += heroMoveSpeed;
+        }else if (xLocation > xDest) {
+            xLocation -= heroMoveSpeed;
         }
-    }
+
+        if(yLocation < yDest) {
+            yLocation += heroMoveSpeed;
+        }else if (yLocation > yDest) {
+            yLocation -= heroMoveSpeed;
+        }
+
+        if((xLocation == xDest) && (yLocation == yDest)) {
+            xDest = random.nextInt(xPosNotToGoPast);
+            yDest = random.nextInt(screenHeight);
+        }
+}
 
 
     @Override
@@ -67,27 +95,6 @@ public class OurLittleBossHero extends OurLittleHero{
 
         // draw our boss hero
         canvas.drawBitmap(ourBmp,null,dest,null);
-    }
-
-    // override this to actually get the index of the FURTHEST balloon!
-    // this causes the boss to run away from the closest bullet
-    @Override
-    public int getIndexOfClosestBalloon(Balloon[] balloons) {
-        int index = 0;
-        float distance;
-        for(Balloon b : balloons) {
-            if(b.isBalloonActive()) {
-                distance = renderMath.fdistance(b.xLocation, b.yLocation, xLocation, yLocation);
-
-                if (closestDistance < distance) {
-                    closestDistance = distance;
-                    closestIndex = index;
-                }
-            }
-            index++;
-        }
-
-        return closestIndex;
     }
 
 }

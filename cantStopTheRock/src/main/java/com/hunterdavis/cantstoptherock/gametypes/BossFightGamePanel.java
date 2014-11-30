@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
@@ -24,9 +26,14 @@ public class BossFightGamePanel extends BaseStopTheRockPanel {
     private int heartSize;
     private int heartPadding;
 
+    private Paint paint;
+
     public BossFightGamePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setStyle(Paint.Style.FILL);
     }
 
     @Override
@@ -48,7 +55,7 @@ public class BossFightGamePanel extends BaseStopTheRockPanel {
 
     @Override
     public OurLittleHero getHero() {
-        return new OurLittleBossHero(mContext,150,150,heroSize, mWidth/2, 64/gameTickSpeed);
+        return new OurLittleBossHero(mContext,150,150,heroSize, mWidth/2, 64/gameTickSpeed, mHeight);
     }
 
 
@@ -76,10 +83,18 @@ public class BossFightGamePanel extends BaseStopTheRockPanel {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawBossHealth(canvas);
+        // draw the balloons and hero
+        if ((!gameOver) && (firstRun == false) && gameStarted) {
+            drawBossHealth(canvas);
+        }
+
+
     }
 
     public void drawBossHealth(Canvas canvas) {
+
+        canvas.drawRect(0,0,heartPadding + heartSize,heartPadding + heartSize,paint);
+
         RectF heartRect = new RectF();
         heartRect.top = heartPadding;
         heartRect.bottom = heartPadding + heartSize;
