@@ -62,20 +62,27 @@ public class OurLittleBossHero extends OurLittleHero{
 
     @Override
     public void moveHero(Balloon[] balloons) {
+        float xDistance = renderMath.fdistance(xLocation,0,xDest,0);
+        float yDistance = renderMath.fdistance(yLocation,0,yDest,0);
 
-        if(xLocation < xDest) {
-            xLocation += heroMoveSpeed;
-        }else if (xLocation > xDest) {
-            xLocation -= heroMoveSpeed;
+
+        if(xDistance >= heroMoveSpeed) {
+            if (xLocation < xDest) {
+                xLocation += heroMoveSpeed;
+            } else if (xLocation > xDest) {
+                xLocation -= heroMoveSpeed;
+            }
         }
 
-        if(yLocation < yDest) {
-            yLocation += heroMoveSpeed;
-        }else if (yLocation > yDest) {
-            yLocation -= heroMoveSpeed;
+        if(yDistance >= heroMoveSpeed) {
+            if (yLocation < yDest) {
+                yLocation += heroMoveSpeed;
+            } else if (yLocation > yDest) {
+                yLocation -= heroMoveSpeed;
+            }
         }
 
-        if(renderMath.fdistance (xLocation,yLocation,xDest,yDest) <= heroMoveSpeed) {
+        if(renderMath.fdistance (xLocation,yLocation,xDest,yDest) <= 2 * (heroMoveSpeed+1)) {
             xDest = random.nextInt(xPosNotToGoPast);
             yDest = random.nextInt(screenHeight);
         }
