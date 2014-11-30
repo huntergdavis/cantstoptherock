@@ -38,6 +38,7 @@ public class OurLittleBossHero extends OurLittleHero{
     Random random;
 
     int screenHeight = 200;
+    int bossSize = 200;
 
     public OurLittleBossHero(Context context, int x, int y, int siz, int dontGoPastThisXPos, int healthPerBalloonHit, int screenHeight) {
         super(x, y, siz);
@@ -51,7 +52,6 @@ public class OurLittleBossHero extends OurLittleHero{
         random = new Random();
 
         // pre-calculate and cache our graphics
-        int bossSize = 100;
         ourBmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),
                         R.drawable.dragon),bossSize,bossSize,true);
         dest  = new Rect(xLocation-bossSize/2,yLocation-bossSize/2,xLocation+bossSize/2, yLocation+bossSize/2);
@@ -77,7 +77,9 @@ public class OurLittleBossHero extends OurLittleHero{
             xDest = random.nextInt(xPosNotToGoPast);
             yDest = random.nextInt(screenHeight);
         }
-}
+
+        dest  = new Rect(xLocation-bossSize/2,yLocation-bossSize/2,xLocation+bossSize/2, yLocation+bossSize/2);
+    }
 
 
     @Override
@@ -92,7 +94,6 @@ public class OurLittleBossHero extends OurLittleHero{
 
     @Override
     public void drawHero(Canvas canvas, Paint paint) {
-
         // draw our boss hero
         canvas.drawBitmap(ourBmp,null,dest,null);
     }
