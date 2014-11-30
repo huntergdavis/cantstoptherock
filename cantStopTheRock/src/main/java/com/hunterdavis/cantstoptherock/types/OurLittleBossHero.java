@@ -40,13 +40,15 @@ public class OurLittleBossHero extends OurLittleHero{
     int screenHeight = 200;
     int bossSize = 200;
 
-    public OurLittleBossHero(Context context, int x, int y, int siz, int dontGoPastThisXPos, int healthPerBalloonHit, int screenHeight) {
+    public OurLittleBossHero(Context context, int x, int y, int siz, int dontGoPastThisXPos, int healthPerBalloonHit, int canvasHeight) {
         super(x, y, siz);
         xPosNotToGoPast = dontGoPastThisXPos;
         healthPerBalloon = healthPerBalloonHit;
 
         xDest = x;
         yDest = y;
+
+        screenHeight = canvasHeight;
 
         // random
         random = new Random();
@@ -73,7 +75,7 @@ public class OurLittleBossHero extends OurLittleHero{
             yLocation -= heroMoveSpeed;
         }
 
-        if((xLocation == xDest) && (yLocation == yDest)) {
+        if(renderMath.fdistance (xLocation,yLocation,xDest,yDest) <= heroMoveSpeed) {
             xDest = random.nextInt(xPosNotToGoPast);
             yDest = random.nextInt(screenHeight);
         }

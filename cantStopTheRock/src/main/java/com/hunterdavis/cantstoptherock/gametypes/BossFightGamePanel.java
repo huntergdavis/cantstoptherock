@@ -93,7 +93,7 @@ public class BossFightGamePanel extends BaseStopTheRockPanel {
 
     public void drawBossHealth(Canvas canvas) {
 
-        canvas.drawRect(0,0,heartPadding + heartSize,heartPadding + heartSize,paint);
+        canvas.drawRect(0,0,mWidth,heartPadding + heartSize,paint);
 
         RectF heartRect = new RectF();
         heartRect.top = heartPadding;
@@ -103,9 +103,10 @@ public class BossFightGamePanel extends BaseStopTheRockPanel {
             heartRect.right = (i+1) * (heartSize + heartPadding);
             heartRect.left = heartRect.right - heartSize;
 
-            if(((OurLittleBossHero)hero).health > ((i+1) * (OurLittleBossHero.TOTAL_HEALTH/10))) {
+            // use -5 to give some wiggle room around heart display
+            if(((OurLittleBossHero)hero).health > (((i+1) * (OurLittleBossHero.TOTAL_HEALTH/10))-5) ) {
                 canvas.drawBitmap(heartBmp,null,heartRect,null);
-            }else if (((OurLittleBossHero)hero).health > (i * (OurLittleBossHero.TOTAL_HEALTH/10))) {
+            }else if (((OurLittleBossHero)hero).health > (i * (OurLittleBossHero.TOTAL_HEALTH/10))-5) {
                 canvas.drawBitmap(halfHeartBmp,null,heartRect,null);
             }else {
                 canvas.drawBitmap(emptyHeartBmp,null,heartRect,null);
