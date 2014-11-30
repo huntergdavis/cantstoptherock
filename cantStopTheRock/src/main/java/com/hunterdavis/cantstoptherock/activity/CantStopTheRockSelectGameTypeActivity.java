@@ -44,7 +44,12 @@ public class CantStopTheRockSelectGameTypeActivity extends Activity {
             }
         });
 
-
+        ((ImageButton) findViewById(R.id.bossFightButton)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSpeed(v.getContext(), GameType.BOSS_FIGHT);
+            }
+        });
 
 		// Look up the AdView as a resource and load a request.
 		AdView adView = (AdView) this.findViewById(R.id.adView);

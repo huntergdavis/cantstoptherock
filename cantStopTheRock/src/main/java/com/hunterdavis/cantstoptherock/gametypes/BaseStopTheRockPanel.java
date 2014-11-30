@@ -261,7 +261,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
     }
 
     // init the game state (after the graphics panel)
-    private void initGameState() {
+    protected void initGameState() {
         firstRun = false;
         hero = getHero();
         hero.updateMoveSpeed(gameTickSpeed + 1);
