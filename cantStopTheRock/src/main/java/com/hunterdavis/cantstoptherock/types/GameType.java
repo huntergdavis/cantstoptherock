@@ -7,5 +7,6 @@ public enum GameType {
     VANILLA,
     MUSIC_NOTES,
     FILL_ME_UP,
-    BOSS_FIGHT
+    BOSS_FIGHT,
+    FLYING_HERO
 }

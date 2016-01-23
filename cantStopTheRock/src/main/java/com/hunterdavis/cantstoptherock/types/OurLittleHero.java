@@ -52,7 +52,7 @@ public class OurLittleHero {
         heroMoveSpeed = moveSpeed;
     }
 
-    protected void recalculateDrawableRect() {
+    public void recalculateDrawableRect() {
         drawableRect = new RectF(xLocation - size, yLocation + size, xLocation + size, yLocation
                 - size);
     }

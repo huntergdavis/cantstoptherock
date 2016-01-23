@@ -51,6 +51,16 @@
                 android:background="#FFFFFF"
                 android:src="@drawable/bossfight" />
 
+            <ImageButton
+                android:id="@+id/flyingHeroButton"
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:src="@drawable/flyinghero" />
+
+
         </LinearLayout>
     </ScrollView>
 

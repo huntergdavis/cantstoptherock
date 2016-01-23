@@ -143,7 +143,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
         }
     }
 
-    private void dropABaloon(MotionEvent event) {
+    protected void dropABaloon(MotionEvent event) {
 
         for(Balloon b : balloons) {
             if(b.isBalloonActive()) {
@@ -178,7 +178,7 @@ public class BaseStopTheRockPanel extends GameSurfaceView implements SurfaceHold
         return Color.DKGRAY;
     }
 
-    private void winAndFinishActivity() {
+    protected void winAndFinishActivity() {
         ((Activity) mContext).finish();
     }
 

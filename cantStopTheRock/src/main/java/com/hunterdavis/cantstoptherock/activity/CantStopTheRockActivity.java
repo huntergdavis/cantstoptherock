@@ -15,6 +15,7 @@ import com.hunterdavis.cantstoptherock.R;
 import com.hunterdavis.cantstoptherock.gametypes.BaseStopTheRockPanel;
 import com.hunterdavis.cantstoptherock.gametypes.BossFightGamePanel;
 import com.hunterdavis.cantstoptherock.gametypes.FillMeUpRockPanel;
+import com.hunterdavis.cantstoptherock.gametypes.FlyingHeroGamePanel;
 import com.hunterdavis.cantstoptherock.types.Difficulty;
 import com.hunterdavis.cantstoptherock.types.GameType;
 import com.hunterdavis.cantstoptherock.gametypes.MusicalNotesRockPanel;
@@ -151,6 +152,8 @@ public class CantStopTheRockActivity extends Activity {
                 return new FillMeUpRockPanel(context, null);
             case BOSS_FIGHT:
                 return new BossFightGamePanel(context, null);
+            case FLYING_HERO:
+                return new FlyingHeroGamePanel(context, null);
         }
     }
 

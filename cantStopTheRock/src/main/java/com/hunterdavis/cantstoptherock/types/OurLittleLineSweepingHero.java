@@ -19,7 +19,7 @@ public class OurLittleLineSweepingHero extends OurLittleHero {
     }
 
     @Override
-    protected void recalculateDrawableRect() {
+    public void recalculateDrawableRect() {
         drawableRect = new RectF(xLocation - size/2, height, xLocation + size/2, 0);
     }
 
